@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import RealmApp from './provider/realm';
+import MongoDB from './provider/mongodb';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RealmApp>
+      <MongoDB>
+          <App />
+        </MongoDB>
+      </RealmApp>
   </React.StrictMode>,
   document.getElementById('root')
 );
