@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-
 import { useRealmApp } from "./realm"
-
 const MongoDBContext = React.createContext(null)
 
 const MongoDB = ({ children }) => {

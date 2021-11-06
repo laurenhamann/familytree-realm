@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { Icon, Button, Pane, Heading, IconButton, NewPersonIcon, EditIcon, FilterIcon, GridViewIcon, GlobeIcon, IntersectionIcon, ListIcon, UserIcon, SelectIcon, Tooltip, SearchIcon} from "evergreen-ui"
+import { Icon, Button, Pane, Heading, IconButton, NewPersonIcon, EditIcon, FilterIcon, GridViewIcon, GlobeIcon,  ListIcon, UserIcon, Tooltip, SearchIcon} from "evergreen-ui"
 import Branch from './branch';
 import Form from './dataform';
+import IndividualTree from './click-tree';
 
 function Header(props) {
     return (
@@ -22,7 +23,8 @@ function Header(props) {
                     margin={2} 
                 />
                 <Heading 
-                    is="h3" 
+                    is="h3"
+                    fontFamily='vaccine'
                     margin={2} >
                     {props.user.id}
                 </Heading>
@@ -35,7 +37,7 @@ function Header(props) {
                             icon={NewPersonIcon} 
                             onClick={() => props.setView('form')} 
                             margin={2}
-                            intent={props.view === 'form' ? "success" : props.view === 'edit' ? "disabled" : "default" }
+                            intent={props.view === 'form' ? "success" : props.view === 'edit' ? "disabled" : "none" }
                             />
                     </Tooltip>
                     <Tooltip content="Edit Mode">
@@ -43,7 +45,7 @@ function Header(props) {
                             icon={EditIcon} 
                             onClick={() => props.setView('edit')} 
                             margin={2}
-                            intent={props.view === 'edit' ? "success" : props.view === 'form' ? "disabled" : "default" }
+                            intent={props.view === 'edit' ? "success" : props.view === 'form' ? "disabled" : "none" }
                         />
                     </Tooltip>
                     {/* <IconButton icon={SelectIcon} />
@@ -55,7 +57,7 @@ function Header(props) {
                             icon={FilterIcon} 
                             onClick={() => props.setView('filter')} 
                             margin={2}
-                            intent={props.view === 'filter' ? "success" : props.view === 'search' | 'edit' | 'form' ? "disabled" : "default" }
+                            intent={props.view === 'filter' ? "success" : props.view === 'search' | 'edit' | 'form' ? "disabled" : "none" }
                             />
                     </Tooltip>
                     <Tooltip content="Grid-View">
@@ -63,7 +65,7 @@ function Header(props) {
                             icon={GridViewIcon} 
                             onClick={() => props.setView('grid')} 
                             margin={2} 
-                            intent={props.view === 'grid' ? "success" : props.view === 'edit' | 'form' ? "disabled" : "default" }
+                            intent={props.view === 'grid' ? "success" : props.view === 'edit' | 'form' ? "disabled" : "none" }
                         />
                     </Tooltip>
                     <Tooltip content="Globe-View">
@@ -71,7 +73,7 @@ function Header(props) {
                             icon={GlobeIcon} 
                             onClick={() => props.setView('globe')} 
                             margin={2} 
-                            intent={props.view === 'globe' ? "success" : props.view === 'edit' | 'form' ? "disabled" : "default" }
+                            intent={props.view === 'globe' ? "success" : props.view === 'edit' | 'form' ? "disabled" : "none" }
                             />
                     </Tooltip>
                     <Tooltip content="List-View">
@@ -79,7 +81,7 @@ function Header(props) {
                             icon={ListIcon} 
                             onClick={() => props.setView('list')} 
                             margin={2} 
-                            intent={props.view === 'list' ? "success" : props.view === 'search' | 'edit' | 'form' ? "disabled" : "default" }
+                            intent={props.view === 'list' ? "success" : props.view === 'search' | 'edit' | 'form' ? "disabled" : "none" }
                             />
                     </Tooltip>
                     <Tooltip content="Search">
@@ -87,7 +89,7 @@ function Header(props) {
                             icon={SearchIcon}  
                             onClick={() => props.setView('search')} 
                             margin={2}
-                            intent={props.view === 'search' ? "success" : props.view === 'filter' | 'edit' | 'form' ? "disabled" : "default" }
+                            intent={props.view === 'search' ? "success" : props.view === 'filter' | 'edit' | 'form' ? "disabled" : "none" }
                         />
                     </Tooltip>
                 </Pane>
@@ -98,8 +100,10 @@ function Header(props) {
 
 function BranchList(props) {
     console.log(props);
+    const [genid, setId]  =  useState();
     const [clickedID, setClickedId] = useState('412311256026')
     const [view, setView] = useState('grid')
+    console.log(props.branches)
     return view === 'grid' ? (
         <Pane 
             border="muted" 
@@ -115,11 +119,14 @@ function BranchList(props) {
                 setView={setView}
                 user={props.user}
             />
-            {props.branches.map((branch) => {
+            {props.branches.map((branch, i) => {
                 return <Branch branch={branch}
                                             setClickedId={setClickedId}
                                             clickedID={clickedID}
+                                            setView={setView}
                                             branches={props.branches}
+                                            setId={setId}
+                                            key={i}
                                             view={view} />
                 })}
                     <Pane 
@@ -150,7 +157,18 @@ function BranchList(props) {
                 view={view}
                 setView={setView} />
         </>
-    )  : (
+    ) : view === 'tree' ? 
+    (
+        <>
+        <Header
+            setView={setView}
+            user={props.user}
+        />
+        <IndividualTree id={genid}
+        branches={props.branches}
+        setView={setView} />
+        </>
+    ) : (
         <>
             <Header 
                     setView={setView}
