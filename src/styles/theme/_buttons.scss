@@ -1,0 +1,25 @@
+@import './colors';
+@import './elevation';
+@import '../layout/layout--mixins';
+
+
+$primary: $purple-700;
+$disabled: $purple-100;
+$error: $red-600;
+
+
+
+.button {
+    &--primary {
+        @extend .button;
+        background-color: $primary;
+        color: $neutral-white;
+        box-shadow: $elevation2;
+        transition: box-shadow 0.3s;
+        @include size(75px, auto);
+        &:hover {
+            box-shadow: $elevation4;
+            cursor: pointer;
+        }
+    }
+}

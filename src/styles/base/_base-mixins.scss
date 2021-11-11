@@ -1,0 +1,8 @@
+// reset
+
+//fontSize 
+
+@mixin fontsize($min, $prefer, $max){
+    font-size: clamp($min, $prefer, $max);
+}
+

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Icon, Button, Pane, Heading, IconButton, NewPersonIcon, EditIcon, FilterIcon, GridViewIcon, GlobeIcon,  ListIcon, UserIcon, Tooltip, SearchIcon} from "evergreen-ui"
+import { Icon, Button, Pane, Heading, IconButton, NewPersonIcon, EditIcon, FilterIcon, GridViewIcon, GlobeIcon,  ListIcon, UserIcon, Tooltip, SearchIcon, HomeIcon} from "evergreen-ui"
 import Branch from './branch';
 import Form from './dataform';
 import IndividualTree from './click-tree';
@@ -31,6 +31,13 @@ function Header(props) {
             </Pane>
                 <Pane 
                     is="section">
+                    <Tooltip content="Home">
+                        <IconButton 
+                            icon={HomeIcon} 
+                            onClick={() => props.setView('grid')} 
+                            margin={2}
+                        />
+                    </Tooltip>
                     <Tooltip 
                         content="Add New Person">
                         <IconButton 
@@ -99,11 +106,9 @@ function Header(props) {
 
 
 function BranchList(props) {
-    console.log(props);
     const [genid, setId]  =  useState();
     const [clickedID, setClickedId] = useState('412311256026')
     const [view, setView] = useState('grid')
-    console.log(props.branches)
     return view === 'grid' ? (
         <Pane 
             border="muted" 
@@ -126,6 +131,7 @@ function BranchList(props) {
                                             setView={setView}
                                             branches={props.branches}
                                             setId={setId}
+                                            small={false}
                                             key={i}
                                             view={view} />
                 })}
@@ -160,13 +166,27 @@ function BranchList(props) {
     ) : view === 'tree' ? 
     (
         <>
+        <Pane 
+            border="muted" 
+            justifyContent="center" 
+            display="flex" 
+            minHeight="100vh" 
+            height="auto" 
+            background="red25"  
+            flexDirection="row" 
+            flexWrap="wrap" 
+            alignItems="flex-start">
         <Header
             setView={setView}
             user={props.user}
         />
         <IndividualTree id={genid}
-        branches={props.branches}
-        setView={setView} />
+            setId={setId}
+            branches={props.branches}
+            setClickedId={setClickedId}
+            clickedID={clickedID}
+            setView={setView} />
+            </Pane>
         </>
     ) : (
         <>

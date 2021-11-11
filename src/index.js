@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/base/base.scss';
 import RealmApp from './provider/realm';
 import MongoDB from './provider/mongodb';
 import App from './App';

@@ -1,0 +1,52 @@
+@import '../theme/colors';
+@import '../theme/elevation';
+@import '../layout/layout--mixins';
+@import '../theme/buttons';
+.pane {
+    @include flex(row);
+    align-content: center;
+    align-items: center;
+    height: 100vh;
+    &--inner {
+        @extend .pane;
+        margin: auto;
+        background-color: $purple-100;
+        @include size(85%);
+        max-width: 750px;
+        padding: 5%;
+        border-radius: 4px;
+        box-shadow: $elevation2;
+    }
+}
+
+.header-text {
+    color: $purple-700;
+    text-align: center;
+}
+.input--pane {
+    width: 100%;
+
+    &--inner {
+        @extend .input--pane;
+        width: 85%;
+        margin: 4px auto;
+    }
+}
+
+.input--label {
+    color: $neutral-white;
+    font-weight: 500;
+}
+
+.input {
+    background-color: $neutral-white;
+    margin: 5px auto;
+    padding: 5px;
+    width: 100%;
+    color: $neutral-black;
+    border: solid 1px transparent;
+    transition: border 1s;
+    &:focus {
+        border: solid 1px $neutral-black;
+    }
+}

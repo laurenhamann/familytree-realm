@@ -1,0 +1,17 @@
+@mixin flex($direction, $justify: center, $wrap:wrap ) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    flex-wrap: $wrap;
+}
+
+@mixin centerElement($marginTop: 0, $marginRight: auto, $marginBottom: 0, $marginLeft: auto){
+    margin: $marginTop, $marginRight, $marginBottom, $marginLeft;
+}
+
+
+@mixin size($width:auto , $height:auto) {
+    width: $width;
+    height: $height;
+}
+

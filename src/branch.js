@@ -3,80 +3,64 @@ import {Pane, ListItem, Tooltip, Position, Card, Paragraph, Avatar, Heading, Lin
 
 
 function Branch(props) {
-    const last =  props.branch.names[0].surname;
-    const married = props.branch.names[0].married === undefined ? " " : props.branch.names[0].married;
-    const gender = props.branch.gender;
-    const first = props.branch.names[0].first;
-    const fullName = `${first} ${last}`;
-    const src = props.branch.src;
+    const branch = props.branch
+    console.log(branch);
+    const name = branch.names[0]
+    const last =  name.surname;
     const t = props.id;
-
-    const id = props.branch.gen_id;
-    const diff = gender === 'female' ?
+    const middle = name.middle === undefined ? " " : name.middle;
+    const gender = branch.gender;
+    const first = name.first;
+    const suffix = name.suffix;
+    const fullName = `${first} ${middle} ${last}`;
+    const src = branch.src;
+    const sm = '';
+    const genid = branch.gen_id;
+    console.log(t, genid);
+    const header =
         <>
             <Heading 
                 is="h6" 
                 width={100}
                 fontFamily='vaccine'
                 textAlign="center"> 
-                {last} 
+                {fullName} 
             </Heading>
             <Heading 
                 size={200} 
                 width={100}
                 fontFamily='vaccine'
                 textAlign="center"> 
-                {married}
+                {suffix}
             </Heading>
-        </>
-        :
-        <Heading 
-            is="h6" 
-            width={100}
-            fontFamily='vaccine'  
-            textAlign="center">
-            {last}
-        </Heading>;
+        </>;
 
-    const avatar = gender === "male" ? 
+    const avatar = 
         <Avatar
             src={src}
             name= {fullName}
             size={80}
             paddingBottom={2}
-            color="green"
-            /> 
-        :   gender === "female" ? 
-        <Avatar
-            color="purple"
-            src={src}
-            name={fullName}
-            size={80}
-        />: 
-        <Avatar
-            color="yellow"
-            src={src}
-            name={fullName}
-            size={80}
-        />;
+            color={gender === 'female' ? "purple" : gender === 'male' ?  "green" : "yellow"}
+            /> ;
         //on click box-shadow
-        const elevation = props.clickedID === id ? 4 : 0;
+        const elevation = props.clickedID === genid ? 4 : 0;
         //family 
-        const family = props.branch.family.map((fam, i)=> {
+        const family = branch.family.map((fam, i)=> {
             return (
-                    <Link 
-                        href={`#${fam.gen_id}`} 
-                        marginRight={12} 
-                        color="neutral" 
-                        key={i}
-                        fontFamily='hero-new'
-                        onClick={() => props.setClickedId(fam.gen_id)}>
-                            {fam.type}
-                        </Link>
+                <Link 
+                    href={`#${fam.gen_id}`} 
+                    marginRight={12} 
+                    color="neutral" 
+                    key={i}
+                    fontFamily='hero-new'
+                    onClick={() => props.setClickedId(fam.gen_id)}>
+                        {fam.type}
+                    </Link>
             )
         })
         //Map events
-        const events = props.branch.events.map((ev,i) => {
+        const events = branch.events.map((ev,i) => {
             const content = <UnorderedList >
                                         <ListItem 
                                             color="muted"
@@ -107,8 +91,9 @@ function Branch(props) {
                 </Tooltip>
             )
         })
-        return (<Card 
-            key={props.branch._id} 
+        return (
+        <Card 
+            key={branch._id} 
             minWidth="auto" 
             width="150px" 
             height="auto" 
@@ -121,52 +106,52 @@ function Branch(props) {
             flexDirection="column" 
             justifyContent="center" 
             alignItems="center" 
-            id={id} 
+            id={genid} 
+            className={props.id}
             elevation={elevation} 
-            paddingBottom={10}>
+            paddingBottom={10}
+        >
+            {/* button section */}
             <Pane 
                 is="section" 
                 display="flex" 
                 flexDirection="row" 
                 justifyContent="space-between" 
                 width="100%" 
-                paddingBottom={10}>
+                className="button-section"
+                paddingBottom={10}
+            >
                 <Tooltip content="View-Tree">
                     <IconButton 
                         icon={DiagramTreeIcon} 
                         size= "small"
                         padding={2}
-                        id={id}
-                        onClick={(e) => {
-                            props.setId(e.target.id)
+                        id={genid}
+                        onClick={() =>{ props.setClickedId(genid)
+                            console.log(genid);
                             props.setView('tree')}}
-                        />
+                    />
                 </Tooltip>
+                <h2>{t}</h2>
                 <Tooltip content="Detailed-Page">
                     <IconButton 
                         icon={PageLayoutIcon} 
                         size= "small"
-                        padding={2} />
+                        padding={2} 
+                    />
                 </Tooltip>
             </Pane>
-            <h2>{t}</h2>
             {avatar}
-            <Heading 
-                is="h6" 
-                width={100}
-                fontFamily='vaccine'  
-                textAlign="center">
-                {first}
-            </Heading>
-            {diff}
+            {header}
             <Paragraph 
                 size={300} 
-                marginTop={12} 
+                marginTop={1} 
                 textAlign='center' 
-                fontFamily='madelinette'>
+                color={gender === 'female' ? "purple600" : gender === 'male' ? "green600" : "yellow600"}
+            >
                 {gender}
             </Paragraph>
-            {family}
+            {props.small ? sm : family}
             {events}
         </Card>)
 }

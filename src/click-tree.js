@@ -1,51 +1,132 @@
 import React from 'react'
 import Branch from './branch'
-
+import styled  from '@emotion/styled'
+export const TreeBranchStyles = styled('div')`
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    div {
+        justify-content: flex-start;
+        h2 {
+            font-size: 12px;
+            margin-bottom: 0.5px;
+            margin-top: 0.5px;
+        }
+        div {
+            margin: 0.5px;
+        }
+        p {
+            margin-top: 0px;
+        }
+    }
+`
 function IndividualTree(props) {
-    console.log(props.id)
+    console.log(props.clickedID)
     const branches = props.branches;
-    let arr;
-    let fam;
-    branches.filter(b => {
-        if(b.gen_id === props.id){
-            console.log(b)
-            arr = b
-            fam = b.family;
-            return b;
+    let family_branch_array = [];
+    let family_obj = [];
+    let family;
+    let array;
+    branches.map(branch => {
+        const origin_id =  props.clickedID;
+        if(origin_id === branch.gen_id) {
+            array = branch;
+            family = branch.family
+            console.log(family)
         }
     })
-    let ids = [];
-    let fa = [];
-    fam.forEach(f => {
-        let id = f.gen_id;
-        branches.filter(br => {
-            if(br.gen_id === id) {
-                const peep =  {
-                    "id": id,
-                    "type": f.type
-                }
-                fa.push(peep)
-                ids.push(br);
-            }
-        })
-    })
 
-    const family = ids.map((family) => {
+  const family_members = family.map(mem => {
+        let gen_id = mem.gen_id
+        console.log(gen_id)
+        let obj;
         let type;
-        fa.forEach(f => {
-            if(f.id === family.gen_id) {
-                type = f.type
+        let person_added;
+        branches.filter(branch => {
+            if(branch.gen_id === gen_id){
+                obj = branch
+                type = mem.type
+                person_added = true
+                console.log('in filter')
             }
         })
-        return <Branch branch={family} id={type} />
+        console.log(person_added)
+        if(person_added){
+            console.log('in if')
+            return <Branch 
+                            branch={obj} 
+                            type={type} 
+                            id={type} 
+                            setId={props.setId} 
+                            setView={props.setView} 
+                            key={gen_id} 
+                            setClickedId={props.setClickedId} 
+                            small={true} />
+        } else {
+            return
+        }
     })
-    console.log(fam);
 
+    // branches.filter(b => {
+    //     if(b.gen_id === props.clickedID){
+    //         array = b
+    //         console.log(b);
+    //         if(b.family !== undefined){
+    //             const arrayFamily = b.family;
+    //             arrayFamily.forEach(f => {
+    //                 let family_gen_id = f.gen_id;
+    //                 branches.filter(br => {
+    //                     if(br.gen_id === family_gen_id) {
+    //                         const peep =  {
+    //                             "id": family_gen_id,
+    //                             "type": f.type
+    //                         }
+    //                         family_obj.push(peep)
+    //                         family_branch_array.push(br);
+    //                     }else {
+    //                         family = 'The family members have not been added yet. Check back later.'
+    //                     }
+    //                 })
+    //             })
+    //             family = family_branch_array.map((mem) => {
+    //                 let type;
+    //                 let k;
+    //                 family_obj.forEach(obj => {
+    //                     if(obj.id === mem.gen_id) {
+    //                         type = obj.type
+    //                         k = obj.id
+    //                     }
+    //                 })
+                    
+    //                 return <Branch 
+    //                                 branch={family} 
+    //                                 type={type} 
+    //                                 id={k} 
+    //                                 setId={props.setId} 
+    //                                 setView={props.setView} 
+    //                                 key={k} 
+    //                                 setClickedId={props.setClickedId} 
+    //                                 small={true} />
+    //             })
+    //         }else {
+    //             family = "Cannot find any family members"
+    //         }
+    //         return b;
+    //     }
+    // })
+    // console.log(array);
     return (
         <>
-        <button onClick={() => props.setView('grid')}> &larr;</button>
-        <Branch branch={arr} id="Origin" />
-        {family}
+            <TreeBranchStyles>
+                <Branch 
+                    branch={array} 
+                    id="Origin" 
+                    setId={props.setId} 
+                    setView={props.setView} 
+                    setClickedId={props.setClickedId} 
+                    small={true} />
+                {family_members}
+            </TreeBranchStyles>
         </>
     )
 }
