@@ -1,0 +1,19 @@
+.card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    width: 100%;
+    height: auto;
+    text-align: left;
+}
+
+
+.list {
+    margin: 0 auto;
+    padding: 0;
+}
+.list-item {
+    text-align: left;
+    color: $grey-900;
+}

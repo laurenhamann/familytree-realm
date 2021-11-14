@@ -1,5 +1,9 @@
 import React from 'react'
-import {Pane, ListItem, Tooltip, Position, Card, Paragraph, Avatar, Heading, Link, IconButton, DiagramTreeIcon, UnorderedList, PageLayoutIcon } from "evergreen-ui"
+import Avatar from './avatar';
+import EventContent from './event';
+import ToolTip from './tooltip';
+import {Pane, ListItem, Tooltip, Position, Card, Paragraph, Heading, Link, IconButton, DiagramTreeIcon, UnorderedList, PageLayoutIcon } from "evergreen-ui"
+import './styles/modules/_card.scss';
 
 
 function Branch(props) {
@@ -18,108 +22,58 @@ function Branch(props) {
     const genid = branch.gen_id;
     console.log(t, genid);
     const header =
-        <>
-            <Heading 
-                is="h6" 
-                width={100}
-                fontFamily='vaccine'
-                textAlign="center"> 
+        <div className="card-header">
+            <h4 className="card-header-name"> 
                 {fullName} 
-            </Heading>
-            <Heading 
-                size={200} 
-                width={100}
-                fontFamily='vaccine'
-                textAlign="center"> 
+            </h4>
+            <h4 className="card-header-name"> 
                 {suffix}
-            </Heading>
-        </>;
-
+            </h4>
+        </div>;
+    const avatar_name = `${first} ${last}`;
     const avatar = 
         <Avatar
             src={src}
-            name= {fullName}
-            size={80}
-            paddingBottom={2}
-            color={gender === 'female' ? "purple" : gender === 'male' ?  "green" : "yellow"}
+            fullname= {avatar_name}
+            gender={gender}
             /> ;
         //on click box-shadow
-        const elevation = props.clickedID === genid ? 4 : 0;
+        const elevation = props.clickedID === genid ? 'elevate' : '';
         //family 
         const family = branch.family.map((fam, i)=> {
             return (
-                <Link 
+                <li
+                className="list-item"
+                ><a 
                     href={`#${fam.gen_id}`} 
-                    marginRight={12} 
-                    color="neutral" 
                     key={i}
-                    fontFamily='hero-new'
+                    className='list-item'
                     onClick={() => props.setClickedId(fam.gen_id)}>
                         {fam.type}
-                    </Link>
+                    </a></li>
             )
         })
         //Map events
         const events = branch.events.map((ev,i) => {
-            const content = <UnorderedList >
-                                        <ListItem 
-                                            color="muted"
-                                            fontFamily='hero-new' 
-                                            listStyle="none">
-                                            {ev.date}
-                                        </ListItem>
-                                        <ListItem 
-                                            color="muted"
-                                            fontFamily='hero-new' 
-                                            listStyle="none">
-                                                {ev.place}
-                                        </ListItem>
-                                    </UnorderedList>
             return (
-                <Tooltip 
-                    content={content} 
-                    position={Position.RIGHT} 
-                    appearance="card"
-                    key={i}>
-                    <Link 
-                        href="#" 
-                        marginRight={12}
-                        fontFamily='hero-new' 
-                        color="neutral">
-                            {ev.type}
-                    </Link>
-                </Tooltip>
+                <li className="list-item"><ToolTip 
+                    place={ev.place} 
+                    date={ev.date}
+                    type={ev.type}
+                    key={i} />
+                    </li>
             )
         })
         return (
-        <Card 
+        <div
             key={branch._id} 
-            minWidth="auto" 
-            width="150px" 
-            height="auto" 
-            marginX={20} 
-            marginBottom="10px"
-            marginTop="10px" 
-            border="muted" 
-            background="tint2" 
-            display="flex" 
-            flexDirection="column" 
-            justifyContent="center" 
-            alignItems="center" 
             id={genid} 
-            className={props.id}
+            className={`${props.id} card ${elevation}`}
             elevation={elevation} 
-            paddingBottom={10}
         >
             {/* button section */}
-            <Pane 
-                is="section" 
-                display="flex" 
-                flexDirection="row" 
-                justifyContent="space-between" 
-                width="100%" 
+            <div 
                 className="button-section"
-                paddingBottom={10}
             >
                 <Tooltip content="View-Tree">
                     <IconButton 
@@ -140,20 +94,24 @@ function Branch(props) {
                         padding={2} 
                     />
                 </Tooltip>
-            </Pane>
+            </div>
             {avatar}
-            {header}
-            <Paragraph 
-                size={300} 
-                marginTop={1} 
-                textAlign='center' 
-                color={gender === 'female' ? "purple600" : gender === 'male' ? "green600" : "yellow600"}
-            >
-                {gender}
-            </Paragraph>
-            {props.small ? sm : family}
-            {events}
-        </Card>)
+            <div className="info-names">
+                {header}
+                <p
+                    size={300} 
+                    className={`p-${gender}`}
+                >
+                    {gender}
+                </p>
+            </div>
+            <div className="card-details">
+                <ul className="list">
+                {props.small ? sm : family}
+                {events}
+                </ul>
+            </div>
+        </div>)
 }
 
 export default Branch;

@@ -116,7 +116,6 @@ function BranchList(props) {
             display="flex" 
             minHeight="100vh" 
             height="auto" 
-            background="red25"  
             flexDirection="row" 
             flexWrap="wrap" 
             alignItems="flex-start">

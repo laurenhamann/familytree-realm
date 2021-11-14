@@ -1,0 +1,17 @@
+.info-names {
+    width: 100%;
+    border-bottom: 2px solid $grey-900;
+    p {
+        text-align: center;
+    }
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    margin: 0 auto;
+}
+.card-header-name {
+    text-align: center;
+}

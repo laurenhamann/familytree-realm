@@ -1,0 +1,43 @@
+@import '../theme/colors';
+@import '../theme/elevation';
+@import './card-header';
+@import './card-details';
+.card {
+    min-width: auto;
+    width: 150px;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid $grey-600;
+    background-color: $neutral-white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5px;
+    box-shadow: none;
+}
+// change box-shadow on click 
+.elevate {
+    box-shadow: $elevation4;
+}
+
+
+// top button section on card
+.button-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+
+// gender color
+.p-female {
+    color: $purple-900;
+}
+
+.p-male {
+    color: $blue-900;
+}
+

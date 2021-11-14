@@ -1,37 +1,81 @@
-$yellow-100: #fff6d6;
-$yellow-200: #fff4cc;
-$yellow-300: #fff2c2;
-$yellow-400: #fff0b8;
-$yellow-500: #ffedad;
-$yellow-600 :#ffeba3;
-$yellow-700: #ffe999;
 
+$lightPurple: #C484C0;
 
-$purple-100: #bdb9e8;
-$purple-200: #aca7e2;
-$purple-300: #9b95dc;
-$purple-400: #8b84d6;
-$purple-500: #7a72d0;
-$purple-600 :#6961ca;
-$purple-700: #594fc5;
+$lightPurple-100: scale-color($lightPurple, $lightness: 90%);
+$lightPurple-200: scale-color($lightPurple, $lightness: 80%);
+$lightPurple-300: scale-color($lightPurple, $lightness: 70%);
+$lightPurple-400: scale-color($lightPurple, $lightness: 60%);
+$lightPurple-500: scale-color($lightPurple, $lightness: 50%);
+$lightPurple-600: scale-color($lightPurple, $lightness: 40%);
+$lightPurple-700: scale-color($lightPurple, $lightness: 30%); 
+$lightPurple-800: scale-color($lightPurple, $lightness: 20%);
+$lightPurple-900: scale-color($lightPurple, $lightness: 10%); 
 
+$purple: #551E71;
 
-$green-100: #d0f5e7;
-$green-200: #c4f2e1;
-$green-300: #b9f0db;
-$green-400: #adedd6;
-$green-500: #a1ead0;
-$green-600 :#96e8ca;
-$green-700: #8ae5c4;
+$purple-100: scale-color($purple, $lightness: 90%);
+$purple-200: scale-color($purple, $lightness: 80%);
+$purple-300: scale-color($purple, $lightness: 70%);
+$purple-400: scale-color($purple, $lightness: 60%);
+$purple-500: scale-color($purple, $lightness: 50%);
+$purple-600 :scale-color($purple, $lightness: 40%);
+$purple-700: scale-color($purple, $lightness: 30%);
+$purple-800: scale-color($purple, $lightness: 20%);
+$purple-900: scale-color($purple, $lightness: 10%);
 
-
-$red-100: #fec5d4;
-$red-200: #feb6c9;
-$red-300: #fea8bf;
-$red-400: #fd99b4;
-$red-500: #fd8aa9;
-$red-600: #fd7c9e;
-$red-700: #fd6d93;
 
 $neutral-black: #3D3D3D;
 $neutral-white: #f7f7f7;
+
+
+$grey: #87778C;
+
+$grey-100: scale-color($grey, $lightness: 90%);
+$grey-200: scale-color($grey, $lightness: 80%);
+$grey-300: scale-color($grey, $lightness: 70%);
+$grey-400: scale-color($grey, $lightness: 60%);
+$grey-500: scale-color($grey, $lightness: 50%);
+$grey-600: scale-color($grey, $lightness: 40%);
+$grey-700: scale-color($grey, $lightness: 30%);
+$grey-800: scale-color($grey, $lightness: 20%);
+$grey-900: scale-color($grey, $lightness: 10%);
+
+
+$pink: #C08787;
+
+$pink-100: scale-color($pink, $lightness: 90%);
+$pink-200: scale-color($pink, $lightness: 80%);
+$pink-300: scale-color($pink, $lightness: 70%);
+$pink-400: scale-color($pink, $lightness: 60%);
+$pink-500: scale-color($pink, $lightness: 50%);
+$pink-600: scale-color($pink, $lightness: 40%);
+$pink-700: scale-color($pink, $lightness: 30%);
+$pink-800: scale-color($pink, $lightness: 20%);
+$pink-900: scale-color($pink, $lightness: 10%);
+
+
+$blue: #04009A;
+
+
+$blue-100: scale-color($blue, $lightness: 90%);
+$blue-200: scale-color($blue, $lightness: 80%);
+$blue-300: scale-color($blue, $lightness: 70%);
+$blue-400: scale-color($blue, $lightness: 60%);
+$blue-500: scale-color($blue, $lightness: 50%);
+$blue-600: scale-color($blue, $lightness: 40%);
+$blue-700: scale-color($blue, $lightness: 30%);
+$blue-800: scale-color($blue, $lightness: 20%);
+$blue-900: scale-color($blue, $lightness: 10%);
+
+
+$beige: #C49FAA;
+
+$beige-100: scale-color($beige, $lightness: 90%);
+$beige-200: scale-color($beige, $lightness: 80%);
+$beige-300: scale-color($beige, $lightness: 70%);
+$beige-400: scale-color($beige, $lightness: 60%);
+$beige-500: scale-color($beige, $lightness: 50%);
+$beige-600: scale-color($beige, $lightness: 40%);
+$beige-700: scale-color($beige, $lightness: 30%);
+$beige-800: scale-color($beige, $lightness: 20%);
+$beige-900: scale-color($beige, $lightness: 10%);

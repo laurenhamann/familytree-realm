@@ -10,7 +10,7 @@
     &--inner {
         @extend .pane;
         margin: auto;
-        background-color: $purple-100;
+        background-color: $blue-900;
         @include size(85%);
         max-width: 750px;
         padding: 5%;
@@ -20,7 +20,7 @@
 }
 
 .header-text {
-    color: $purple-700;
+    color: $purple-100;
     text-align: center;
 }
 .input--pane {

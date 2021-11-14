@@ -1,0 +1,14 @@
+@import '../layout/layout--mixins';
+
+
+
+
+.tree-container{
+    @include flex(column);
+    &-parents,
+    &-main-relationship,
+    &-children {
+        @extend .tree-container;
+        @include flex(row);
+    }
+}

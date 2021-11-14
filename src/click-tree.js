@@ -1,6 +1,8 @@
 import React from 'react'
 import Branch from './branch'
 import styled  from '@emotion/styled'
+import './styles/modules/_relationship-tree.scss';
+
 export const TreeBranchStyles = styled('div')`
     display: flex;
     flex-direction: row;
@@ -23,8 +25,6 @@ export const TreeBranchStyles = styled('div')`
 function IndividualTree(props) {
     console.log(props.clickedID)
     const branches = props.branches;
-    let family_branch_array = [];
-    let family_obj = [];
     let family;
     let array;
     branches.map(branch => {
@@ -32,11 +32,21 @@ function IndividualTree(props) {
         if(origin_id === branch.gen_id) {
             array = branch;
             family = branch.family
-            console.log(family)
         }
     })
 
-  const family_members = family.map(mem => {
+    const origin = <Branch 
+    branch={array} 
+    id="Origin" 
+    setId={props.setId} 
+    setView={props.setView} 
+    setClickedId={props.setClickedId} 
+    small={true} />;
+    let spouse = [];
+    let children = [];
+    let parents = [];
+
+    const family_members = family.map(mem => {
         let gen_id = mem.gen_id
         console.log(gen_id)
         let obj;
@@ -51,9 +61,7 @@ function IndividualTree(props) {
             }
         })
         console.log(person_added)
-        if(person_added){
-            console.log('in if')
-            return <Branch 
+        const standard_branch = <Branch 
                             branch={obj} 
                             type={type} 
                             id={type} 
@@ -62,71 +70,34 @@ function IndividualTree(props) {
                             key={gen_id} 
                             setClickedId={props.setClickedId} 
                             small={true} />
-        } else {
+        if(person_added){
+            console.log('in if')
+            if(type === 'Child'){
+            children.push(standard_branch);
+            }else if(type === 'Mother' || type === 'Father') {
+                parents.push(standard_branch);
+            }else if(type === 'Husband' || type === 'Wife'){
+                spouse.push(standard_branch)
+            }else{
+                return
+            }
+        }else {
             return
         }
     })
-
-    // branches.filter(b => {
-    //     if(b.gen_id === props.clickedID){
-    //         array = b
-    //         console.log(b);
-    //         if(b.family !== undefined){
-    //             const arrayFamily = b.family;
-    //             arrayFamily.forEach(f => {
-    //                 let family_gen_id = f.gen_id;
-    //                 branches.filter(br => {
-    //                     if(br.gen_id === family_gen_id) {
-    //                         const peep =  {
-    //                             "id": family_gen_id,
-    //                             "type": f.type
-    //                         }
-    //                         family_obj.push(peep)
-    //                         family_branch_array.push(br);
-    //                     }else {
-    //                         family = 'The family members have not been added yet. Check back later.'
-    //                     }
-    //                 })
-    //             })
-    //             family = family_branch_array.map((mem) => {
-    //                 let type;
-    //                 let k;
-    //                 family_obj.forEach(obj => {
-    //                     if(obj.id === mem.gen_id) {
-    //                         type = obj.type
-    //                         k = obj.id
-    //                     }
-    //                 })
-                    
-    //                 return <Branch 
-    //                                 branch={family} 
-    //                                 type={type} 
-    //                                 id={k} 
-    //                                 setId={props.setId} 
-    //                                 setView={props.setView} 
-    //                                 key={k} 
-    //                                 setClickedId={props.setClickedId} 
-    //                                 small={true} />
-    //             })
-    //         }else {
-    //             family = "Cannot find any family members"
-    //         }
-    //         return b;
-    //     }
-    // })
-    // console.log(array);
     return (
         <>
-            <TreeBranchStyles>
-                <Branch 
-                    branch={array} 
-                    id="Origin" 
-                    setId={props.setId} 
-                    setView={props.setView} 
-                    setClickedId={props.setClickedId} 
-                    small={true} />
-                {family_members}
-            </TreeBranchStyles>
+            <div className="tree-container">
+                <div className="tree-container-parents">
+                    {parents}
+                </div>
+                <div className="tree-container-main-relationship">
+                    {origin}{spouse}
+                </div>
+                <div className="tree-container-children">
+                    {children}
+                </div>
+            </div>
         </>
     )
 }

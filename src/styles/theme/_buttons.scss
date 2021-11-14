@@ -5,15 +5,15 @@
 
 $primary: $purple-700;
 $disabled: $purple-100;
-$error: $red-600;
 
 
 
 .button {
+    margin-top: 10px;
     &--primary {
         @extend .button;
-        background-color: $primary;
-        color: $neutral-white;
+        background-color: $purple-100;
+        color: $purple-900;
         box-shadow: $elevation2;
         transition: box-shadow 0.3s;
         @include size(75px, auto);
