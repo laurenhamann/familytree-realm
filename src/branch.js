@@ -1,14 +1,11 @@
 import React from 'react'
 import Avatar from './avatar';
-import EventContent from './event';
 import ToolTip from './tooltip';
-import {Pane, ListItem, Tooltip, Position, Card, Paragraph, Heading, Link, IconButton, DiagramTreeIcon, UnorderedList, PageLayoutIcon } from "evergreen-ui"
+import {Tooltip, IconButton, DiagramTreeIcon, PageLayoutIcon } from "evergreen-ui"
 import './styles/modules/_card.scss';
-
 
 function Branch(props) {
     const branch = props.branch
-    console.log(branch);
     const name = branch.names[0]
     const last =  name.surname;
     const t = props.id;
@@ -20,7 +17,6 @@ function Branch(props) {
     const src = branch.src;
     const sm = '';
     const genid = branch.gen_id;
-    console.log(t, genid);
     const header =
         <div className="card-header">
             <h4 className="card-header-name"> 
@@ -54,16 +50,54 @@ function Branch(props) {
             )
         })
         //Map events
-        const events = branch.events.map((ev,i) => {
-            return (
-                <li className="list-item"><ToolTip 
-                    place={ev.place} 
-                    date={ev.date}
-                    type={ev.type}
-                    key={i} />
-                    </li>
-            )
+        // const events = branch.events.map((ev,i) => {
+        //     return (
+        //         <li className="list-item"><ToolTip 
+        //             place={ev.place} 
+        //             date={ev.date}
+        //             type={ev.type}
+        //             key={i} />
+        //             </li>
+        //     )
+        // })1`
+
+        // const events = branch.events.map((ev) => {
+        //     let birth;
+        //     let death;
+
+        //     if(ev.type === 'Birth'){
+        //         console.log(ev);
+        //         birth = ev.date;
+        //     }else if( ev.type === 'Death'){
+        //         console.log(ev);
+        //         death = ev.date;
+        //     }else if(ev.type === ''){
+
+        //     }
+        //     const datesLived = `${birth} - ${death}`;
+        //     return datesLived;
+        // })
+        let datesLived = [];
+        branch.events.filter(ev => {
+            if(ev.type === 'Birth' || ev.type === 'Death') {
+                datesLived.push(ev);
+            }
         })
+        const length = datesLived.length;
+        const events = datesLived.map( en => {
+            let birth;
+            let death;
+            if(length < 2 && en.type === 'Birth'){
+                let date = en.date;
+            }
+            if(en.type === 'Birth') {
+                birth = en.date;
+            } else if (en.type === 'Death') {
+                death = en.date;
+            }
+        })
+
+
         return (
         <div
             key={branch._id} 
@@ -82,7 +116,6 @@ function Branch(props) {
                         padding={2}
                         id={genid}
                         onClick={() =>{ props.setClickedId(genid)
-                            console.log(genid);
                             props.setView('tree')}}
                     />
                 </Tooltip>
@@ -107,7 +140,7 @@ function Branch(props) {
             </div>
             <div className="card-details">
                 <ul className="list">
-                {props.small ? sm : family}
+                {/* {props.small ? sm : family} */}
                 {events}
                 </ul>
             </div>
